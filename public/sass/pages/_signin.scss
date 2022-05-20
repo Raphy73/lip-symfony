@@ -1,0 +1,25 @@
+.signin {
+  display: flex;
+  width: 100%;
+  .left-side {
+    width: 35%;
+    min-height: 100vh;
+    background-image: url("../images/bg-signin.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .right-side {
+    width: 65%;
+    min-height: 100vh;
+  }
+  label {
+    width: 100%;
+  }
+  input {
+    height: 40px;
+    width: 100%;
+    border: 1px solid #D1D1D1;
+    border-radius: 6px;
+  }
+}

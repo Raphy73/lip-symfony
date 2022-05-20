@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Form\SigninCompanyType;
 use App\Form\SigninSchoolType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,6 +41,28 @@ class PublicController extends AbstractController
         }
 
         return $this->render('public/signin-school.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/entreprise/inscription", name="company_signin")
+     */
+    public function companySignin(Request $request, EntityManagerInterface $entityManager)
+    {
+        $form = $this->createForm(SigninCompanyType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $values = $form->getData();
+            $values->setRoles(["ROLE_COMPANY"]);
+            $values->setArePreferencesEmpty(true);
+            $entityManager->persist($values);
+            $entityManager->flush();
+        }
+
+        return $this->render('public/signin-company.html.twig', [
             'form' => $form->createView()
         ]);
     }

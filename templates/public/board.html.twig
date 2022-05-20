@@ -3,5 +3,24 @@
 {% block title %}Tableau de bord - Learn in Project{% endblock %}
 
 {% block body %}
-    <h1>Tableau de bord</h1>
+    <div class="d-flex">
+        <div class="dashboard-menu px-2">
+            <img class="dashboard-logo d-block" src="{{ asset("/public/images/logo-lip.svg") }}" alt="">
+            <div class="account p-2">
+                <p class="text-white">
+                    Bonjour, <br />
+                    {{ user.firstname }}
+                    {{ user.lastname }}
+                </p>
+            </div>
+            <h2 class="mt-3">Projets</h2>
+        </div>
+        <div class="m-5">
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                Enregistrez vos préférences et nous vous proposerons les meilleurs projets...
+                <a class="btn btn-primary" href="">C'est parti !</a>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
 {% endblock %}

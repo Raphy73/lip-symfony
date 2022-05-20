@@ -1,0 +1,22 @@
+.dashboard-menu {
+  background-color: #444BFF;
+  height: 100vh;
+  width: 250px;
+  .account {
+    background-color: #6268FF;
+    border-radius: 6px;
+    p {
+      margin-bottom: 0px!important;
+    }
+  }
+  h2 {
+    color: #ffffff;
+    font-size: 1.2em;
+    text-transform: uppercase;
+  }
+}
+
+.dashboard-logo {
+  width: 175px;
+  margin: 30px auto;
+}

@@ -76,8 +76,10 @@ class PublicController extends AbstractController
      */
     public function dashboard()
     {
-        return $this->render('public/board.html.twig', [
+        $user = $this->getUser();
 
+        return $this->render('public/board.html.twig', [
+            'user' => $user
         ]);
     }
 }

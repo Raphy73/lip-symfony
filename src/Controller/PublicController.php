@@ -38,6 +38,8 @@ class PublicController extends AbstractController
             $values->setArePreferencesEmpty(true);
             $entityManager->persist($values);
             $entityManager->flush();
+
+            return $this->redirectToRoute("dashboard");
         }
 
         return $this->render('public/signin-school.html.twig', [
@@ -60,10 +62,22 @@ class PublicController extends AbstractController
             $values->setArePreferencesEmpty(true);
             $entityManager->persist($values);
             $entityManager->flush();
+
+            return $this->redirectToRoute("dashboard");
         }
 
         return $this->render('public/signin-company.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/dashboard", name="dashboard")
+     */
+    public function dashboard()
+    {
+        return $this->render('public/board.html.twig', [
+
         ]);
     }
 }

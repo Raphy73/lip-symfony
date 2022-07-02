@@ -4,12 +4,12 @@
 
 {% block body %}
     <h1 class="text-center my-4">Homepage</h1>
-    <div class="container d-flex flex-column align-items-center">
+    <div class="container homepage d-flex flex-column align-items-center">
         <div class="mt-3">
-            <a class="btn btn-primary" href="{{ path("school_signin") }}">Inscription école</a>
+            <a class="btn btn-primary homepage__resgister-school" href="{{ path("school_signin") }}">Inscription école</a>
         </div>
         <div class="mt-3">
-            <a class="btn btn-primary" href="{{ path("company_signin") }}">Inscription entreprise</a>
+            <a class="btn btn-primary homepage__resgister-firm" href="{{ path("company_signin") }}">Inscription entreprise</a>
         </div>
         <div class="mt-3">
             <a class="btn btn-primary" href="{{ path("app_login") }}">Connexion</a>

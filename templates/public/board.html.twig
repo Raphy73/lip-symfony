@@ -11,6 +11,9 @@
                     Bonjour, <br />
                     {{ user.firstname }}
                     {{ user.lastname }}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots dashboard-user-more" viewBox="0 0 16 16">
+                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                    </svg>
                 </p>
             </div>
             <h2 class="mt-3">Projets</h2>
@@ -18,7 +21,7 @@
         <div class="m-5">
             <div class="alert alert-primary alert-dismissible fade show" role="alert">
                 Enregistrez vos préférences et nous vous proposerons les meilleurs projets...
-                <a class="btn btn-primary" href="">C'est parti !</a>
+                <a class="btn btn-primary" href="{{ path("preferences") }}">C'est parti !</a>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>

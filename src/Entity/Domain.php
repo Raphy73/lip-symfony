@@ -27,6 +27,16 @@ class Domain
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Suggestion::class, inversedBy="domain")
+     */
+    private $suggestion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeOfProject::class, inversedBy="domain")
+     */
+    private $typeOfProject;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +62,30 @@ class Domain
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSuggestion(): ?Suggestion
+    {
+        return $this->suggestion;
+    }
+
+    public function setSuggestion(?Suggestion $suggestion): self
+    {
+        $this->suggestion = $suggestion;
+
+        return $this;
+    }
+
+    public function getTypeOfProject(): ?TypeOfProject
+    {
+        return $this->typeOfProject;
+    }
+
+    public function setTypeOfProject(?TypeOfProject $typeOfProject): self
+    {
+        $this->typeOfProject = $typeOfProject;
 
         return $this;
     }

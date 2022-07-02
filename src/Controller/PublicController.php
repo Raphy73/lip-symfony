@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Form\SigninCompanyType;
 use App\Form\SigninSchoolType;
+use App\Form\SuggestionCompanyType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,7 +40,7 @@ class PublicController extends AbstractController
             $entityManager->persist($values);
             $entityManager->flush();
 
-            return $this->redirectToRoute("dashboard");
+            return $this->redirectToRoute("app_login");
         }
 
         return $this->render('public/signin-school.html.twig', [
@@ -63,7 +64,7 @@ class PublicController extends AbstractController
             $entityManager->persist($values);
             $entityManager->flush();
 
-            return $this->redirectToRoute("dashboard");
+            return $this->redirectToRoute("app_login");
         }
 
         return $this->render('public/signin-company.html.twig', [
@@ -80,6 +81,20 @@ class PublicController extends AbstractController
 
         return $this->render('public/board.html.twig', [
             'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/preferences", name="preferences")
+     */
+    public function preferences(Request $request, EntityManagerInterface $entityManager)
+    {
+        $form = $this->createForm(SuggestionCompanyType::class);
+
+        $form->handleRequest($request);
+
+        return $this->render('public/suggestion-form.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

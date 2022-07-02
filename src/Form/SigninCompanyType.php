@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +16,9 @@ class SigninCompanyType extends AbstractType
             ->add('email')
             ->add('first_name')
             ->add('last_name')
-            ->add('password')
+            ->add('password', PasswordType::class, array(
+
+            ))
             ->add('company')
             ->add('siret')
         ;

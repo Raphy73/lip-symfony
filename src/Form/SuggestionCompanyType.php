@@ -2,32 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Suggestion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class SigninSchoolType extends AbstractType
+class SuggestionCompanyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('first_name')
-            ->add('last_name')
-            ->add('password', PasswordType::class, array(
-
-            ))
-            ->add('school')
-            ->add('uai')
+            ->add('Domain')
+            ->add('number_of_students')
+            ->add('number_of_groups')
+            ->add('number_of_hours')
+            ->add('date_start')
+            ->add('date_end')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Suggestion::class,
         ]);
     }
 }

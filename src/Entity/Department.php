@@ -27,11 +27,6 @@ class Department
      */
     private $number;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Suggestion::class, inversedBy="Department")
-     */
-    private $suggestion;
-
     public function getId(): ?int
     {
         return $this->id;

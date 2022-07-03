@@ -1,7 +1,7 @@
 .dashboard-menu {
   background-color: #444BFF;
   height: 100vh;
-  width: 250px;
+  width: 19%;
   .account {
     background-color: #6268FF;
     border-radius: 6px;
@@ -16,6 +16,10 @@
   }
 }
 
+.right-part {
+  width: 81%
+}
+
 .dashboard-logo {
   width: 175px;
   margin: 30px auto;
@@ -27,4 +31,30 @@
   }
 }
 
-
+.announce {
+  box-shadow: 0px 5px 40px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  display: flex;
+  margin-top: 30px;
+  p {
+    margin-bottom: 0px;
+  }
+  h2 {
+    font-size: 20px;
+    color: #000000;
+    font-width: 900;
+  }
+  &__text {
+    width: 45%;
+    margin-right: 5%;
+  }
+  &__students {
+    width: 15%;
+  }
+  &__domain {
+    width: 20%;
+  }
+  &__register {
+    width: 15%;
+  }
+}

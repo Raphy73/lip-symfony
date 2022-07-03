@@ -1,0 +1,22 @@
+.preferences {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__form {
+    box-shadow: 0px 5px 40px rgba(0, 0, 0, 0.05);
+    width: 500px;
+    margin: 0 auto;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    input, label {
+      width: 100%;
+    }
+    label {
+      margin-top: 10px;
+    }
+  }
+}

@@ -4,6 +4,9 @@
 namespace App\Controller;
 
 
+use App\Entity\Announcement;
+use App\Entity\Domain;
+use App\Entity\User;
 use App\Form\SigninCompanyType;
 use App\Form\SigninSchoolType;
 use App\Form\SuggestionCompanyType;
@@ -75,12 +78,34 @@ class PublicController extends AbstractController
     /**
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboard()
+    public function dashboard(EntityManagerInterface $entityManager)
     {
         $user = $this->getUser();
 
+        $repository = $entityManager->getRepository(Announcement::class);
+        $announcements = $repository->findAll();
+
+        $repository2 = $entityManager->getRepository(Domain::class);
+        $domain = $repository2->find(2);
+
+        if($user->getArePreferencesEmpty() == false) {
+            foreach ($announcements as $announcement) {
+                if($announcement->getDomain() == $domain->getTitle()) {
+                    return $this->render('public/board.html.twig', [
+                        'user' => $user,
+                        'preferences_empty' => $user->getArePreferencesEmpty(),
+                        'announcements' => $announcements,
+                        'domain' => $domain->getTitle()
+                    ]);
+                }
+            }
+        }
+
         return $this->render('public/board.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'preferences_empty' => $user->getArePreferencesEmpty(),
+            'announcements' => $announcements,
+            'domain' => "null"
         ]);
     }
 
@@ -93,8 +118,43 @@ class PublicController extends AbstractController
 
         $form->handleRequest($request);
 
+        $user = $this->getUser();
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $values = $form->getData();
+            $values->setUser($user);
+            $user->setArePreferencesEmpty(false);
+            $entityManager->persist($values);
+            $entityManager->flush();
+
+            return $this->redirectToRoute("dashboard");
+        }
+
         return $this->render('public/suggestion-form.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/ajouter-annonce/{id<\d+>}", name="add_announcement")
+     */
+    public function addAnnouncement(EntityManagerInterface $entityManager, $id)
+    {
+        $user = $this->getUser();
+
+        $repository = $entityManager->getRepository(Announcement::class);
+        $announceToAdd = $repository->find($id);
+        $announceToAdd->setUser($user);
+        $entityManager->flush();
+
+        $repository = $entityManager->getRepository(Announcement::class);
+        $announcements = $repository->findAll();
+
+        return $this->render('public/board.html.twig', [
+            'user' => $user,
+            'preferences_empty' => $user->getArePreferencesEmpty(),
+            'announcements' => $announcements,
+            'domain' => 'null'
         ]);
     }
 }

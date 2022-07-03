@@ -3,14 +3,21 @@
 {% block title %}Formulaire de préférences - Learn in Project{% endblock %}
 
 {% block body %}
-    <div class="d-flex">
-        {{ form_start(form) }}
-        <div class="row">
-            <div class="col-lg-6">
+    <div class="preferences">
+        <div class="preferences__form">
+            <h1 class="text-center text-primary my-4">Préférences</h1>
+            {{ form_start(form) }}
+            <div class="row">
+                {{ form_row(form.domain) }}
                 {{ form_row(form.number_of_students) }}
+                {{ form_row(form.number_of_groups) }}
+                {{ form_row(form.number_of_hours) }}
+                {{ form_row(form.date_start) }}
+                {{ form_row(form.date_end) }}
             </div>
+            <button type="submit" class="btn btn-primary mt-4">Envoyer</button>
+            {{ form_end(form) }}
         </div>
-        <button type="submit" class="btn btn-primary mt-4">Inscription</button>
-        {{ form_end(form) }}
     </div>
+
 {% endblock %}

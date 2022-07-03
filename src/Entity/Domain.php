@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DomainRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,14 +30,19 @@ class Domain
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Suggestion::class, inversedBy="domain")
-     */
-    private $suggestion;
-
-    /**
      * @ORM\ManyToOne(targetEntity=TypeOfProject::class, inversedBy="domain")
      */
     private $typeOfProject;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Suggestion::class, mappedBy="domain")
+     */
+    private $suggestions;
+
+    public function __construct()
+    {
+        $this->suggestions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -66,18 +73,6 @@ class Domain
         return $this;
     }
 
-    public function getSuggestion(): ?Suggestion
-    {
-        return $this->suggestion;
-    }
-
-    public function setSuggestion(?Suggestion $suggestion): self
-    {
-        $this->suggestion = $suggestion;
-
-        return $this;
-    }
-
     public function getTypeOfProject(): ?TypeOfProject
     {
         return $this->typeOfProject;
@@ -86,6 +81,36 @@ class Domain
     public function setTypeOfProject(?TypeOfProject $typeOfProject): self
     {
         $this->typeOfProject = $typeOfProject;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Suggestion>
+     */
+    public function getSuggestions(): Collection
+    {
+        return $this->suggestions;
+    }
+
+    public function addSuggestion(Suggestion $suggestion): self
+    {
+        if (!$this->suggestions->contains($suggestion)) {
+            $this->suggestions[] = $suggestion;
+            $suggestion->setDomain($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSuggestion(Suggestion $suggestion): self
+    {
+        if ($this->suggestions->removeElement($suggestion)) {
+            // set the owning side to null (unless already changed)
+            if ($suggestion->getDomain() === $this) {
+                $suggestion->setDomain(null);
+            }
+        }
 
         return $this;
     }

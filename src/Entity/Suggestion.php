@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\SuggestionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,12 +18,7 @@ class Suggestion
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Department::class, mappedBy="suggestion")
-     */
-    private $Department;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Domain::class, mappedBy="suggestion")
+     * @ORM\ManyToOne(targetEntity=Domain::class, inversedBy="suggestions")
      */
     private $domain;
 
@@ -50,83 +43,29 @@ class Suggestion
     private $date_start;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      */
     private $date_end;
 
     /**
-     * @ORM\OneToMany(targetEntity=TypeOfProject::class, mappedBy="suggestion")
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $type_of_project;
-
-    public function __construct()
-    {
-        $this->Department = new ArrayCollection();
-        $this->domain = new ArrayCollection();
-        $this->type_of_project = new ArrayCollection();
-    }
+    private $user;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return Collection<int, Department>
-     */
-    public function getDepartment(): Collection
-    {
-        return $this->Department;
-    }
-
-    public function addDepartment(Department $department): self
-    {
-        if (!$this->Department->contains($department)) {
-            $this->Department[] = $department;
-            $department->setSuggestion($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDepartment(Department $department): self
-    {
-        if ($this->Department->removeElement($department)) {
-            // set the owning side to null (unless already changed)
-            if ($department->getSuggestion() === $this) {
-                $department->setSuggestion(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Domain>
-     */
-    public function getDomain(): Collection
+    public function getDomain(): ?Domain
     {
         return $this->domain;
     }
 
-    public function addDomain(Domain $domain): self
+    public function setDomain(?Domain $domain): self
     {
-        if (!$this->domain->contains($domain)) {
-            $this->domain[] = $domain;
-            $domain->setSuggestion($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDomain(Domain $domain): self
-    {
-        if ($this->domain->removeElement($domain)) {
-            // set the owning side to null (unless already changed)
-            if ($domain->getSuggestion() === $this) {
-                $domain->setSuggestion(null);
-            }
-        }
+        $this->domain = $domain;
 
         return $this;
     }
@@ -179,44 +118,26 @@ class Suggestion
         return $this;
     }
 
-    public function getDateEnd(): ?int
+    public function getDateEnd(): ?\DateTimeInterface
     {
         return $this->date_end;
     }
 
-    public function setDateEnd(?int $date_end): self
+    public function setDateEnd(?\DateTimeInterface $date_end): self
     {
         $this->date_end = $date_end;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, TypeOfProject>
-     */
-    public function getTypeOfProject(): Collection
+    public function getUser(): ?User
     {
-        return $this->type_of_project;
+        return $this->user;
     }
 
-    public function addTypeOfProject(TypeOfProject $typeOfProject): self
+    public function setUser(User $user): self
     {
-        if (!$this->type_of_project->contains($typeOfProject)) {
-            $this->type_of_project[] = $typeOfProject;
-            $typeOfProject->setSuggestion($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTypeOfProject(TypeOfProject $typeOfProject): self
-    {
-        if ($this->type_of_project->removeElement($typeOfProject)) {
-            // set the owning side to null (unless already changed)
-            if ($typeOfProject->getSuggestion() === $this) {
-                $typeOfProject->setSuggestion(null);
-            }
-        }
+        $this->user = $user;
 
         return $this;
     }

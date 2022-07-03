@@ -29,11 +29,6 @@ class TypeOfProject
      */
     private $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Suggestion::class, inversedBy="type_of_project")
-     */
-    private $suggestion;
-
     public function __construct()
     {
         $this->domain = new ArrayCollection();

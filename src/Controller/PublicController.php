@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Announcement;
 use App\Entity\Domain;
 use App\Entity\User;
+use App\Form\AnnouncementType;
 use App\Form\SigninCompanyType;
 use App\Form\SigninSchoolType;
 use App\Form\SuggestionCompanyType;
@@ -155,6 +156,28 @@ class PublicController extends AbstractController
             'preferences_empty' => $user->getArePreferencesEmpty(),
             'announcements' => $announcements,
             'domain' => 'null'
+        ]);
+    }
+
+    /**
+     * @Route("/nouvelle-annonce", name="new_announcement")
+     */
+    public function newAnnouncement(Request $request, EntityManagerInterface $entityManager)
+    {
+        $form = $this->createForm(AnnouncementType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $product = $form->getData();
+            $entityManager->persist($product);
+            $entityManager->flush();
+
+            return $this->redirectToRoute("dashboard");
+        }
+
+        return $this->render('public/new-announcement.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

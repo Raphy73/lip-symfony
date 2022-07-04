@@ -75,4 +75,15 @@ class SuggestionRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findbyUser($user)
+    {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.user >= :user')
+            ->setParameter('user', $user)
+            ->orderBy('q.start', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

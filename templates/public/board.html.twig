@@ -19,6 +19,9 @@
                     <p class="text-white">👉 {{ announcement.name }}</p>
                 {% endif %}
             {% endfor %}
+            <div>
+                <a class="btn btn-white" href="{{ path("new_announcement") }}">Créer une annonce</a>
+            </div>
         </div>
         <div class="m-5 right-part">
             {% if preferences_empty == 1 %}
